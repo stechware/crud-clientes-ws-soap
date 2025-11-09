@@ -1,11 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.idat</groupId>
   <artifactId>CrudClienteWs</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
   <name>CrudClienteWs</name>
   <description>CrudClienteWs</description>
+
+  <!-- ✅ Repositorios HTTPS seguros -->
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>eclipse</id>
+      <url>https://download.eclipse.org/rt/eclipselink/maven.repo/</url>
+    </repository>
+    <repository>
+      <id>glassfish</id>
+      <url>https://repo1.maven.org/maven2/org/glassfish/</url>
+    </repository>
+    <repository>
+      <id>jaxb-releases</id>
+      <url>https://repo1.maven.org/maven2/org/glassfish/jaxb/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <!-- API de JAX-WS -->
     <dependency>
@@ -13,19 +38,24 @@
       <artifactId>jaxws-api</artifactId>
       <version>2.3.1</version>
     </dependency>
-    <!-- Implementación JAX-WS (Reference Implementation) -->
+
+    <!-- Implementación JAX-WS -->
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
       <version>2.3.1</version>
     </dependency>
+
+    <!-- ✅ Eliminamos jaxws-ri (causa repos obsoletos) -->
+
     <!-- Driver JDBC para MySQL -->
     <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.33</version>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
