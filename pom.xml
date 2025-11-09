@@ -1,35 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.idat</groupId>
   <artifactId>CrudClienteWs</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>CrudClienteWs</name>
-  <description>CrudClienteWs</description>
+  <description>CrudClienteWs - Proyecto SOAP con JAX-WS</description>
 
-  <!-- ✅ Repositorios HTTPS seguros -->
-  <repositories>
-    <repository>
-      <id>maven-central</id>
-      <url>https://repo1.maven.org/maven2/</url>
-    </repository>
-    <repository>
-      <id>eclipse</id>
-      <url>https://download.eclipse.org/rt/eclipselink/maven.repo/</url>
-    </repository>
-    <repository>
-      <id>glassfish</id>
-      <url>https://repo1.maven.org/maven2/org/glassfish/</url>
-    </repository>
-    <repository>
-      <id>jaxb-releases</id>
-      <url>https://repo1.maven.org/maven2/org/glassfish/jaxb/</url>
-    </repository>
-  </repositories>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <dependencies>
     <!-- API de JAX-WS -->
@@ -39,14 +27,19 @@
       <version>2.3.1</version>
     </dependency>
 
-    <!-- Implementación JAX-WS -->
+    <!-- Implementación JAX-WS (Runtime) -->
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.3.1</version>
+      <version>2.3.3</version>
     </dependency>
 
-    <!-- ✅ Eliminamos jaxws-ri (causa repos obsoletos) -->
+    <!-- JAXB Runtime moderno (resuelve el conflicto de txw2) -->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.3.8</version>
+    </dependency>
 
     <!-- Driver JDBC para MySQL -->
     <dependency>
@@ -57,11 +50,45 @@
   </dependencies>
 
   <build>
+    <finalName>CrudClienteWs</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.2</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <!-- Repositorios seguros HTTPS -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <id>glassfish-release</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+  </repositories>
+
+  <!-- Forzar versiones seguras de JAXB (evita bloqueos HTTP) -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>txw2</artifactId>
+        <version>2.3.8</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>2.3.8</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 </project>
