@@ -1,5 +1,5 @@
 # Etapa 1: compilar con Maven
-FROM maven:3.8.7-jdk-8 AS build
+FROM maven:3.9.9-eclipse-temurin-8 AS build
 
 # Copiar el código fuente
 COPY . /app
@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests
 # Etapa 2: ejecutar en Tomcat
 FROM tomcat:8.5-jdk8
 
-# Eliminar la app por defecto de Tomcat
+# Eliminar la aplicación por defecto de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copiar el WAR generado desde la etapa anterior
@@ -22,5 +22,3 @@ EXPOSE 8080
 
 # Comando de inicio
 CMD ["catalina.sh", "run"]
-
-
